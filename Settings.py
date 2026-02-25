@@ -1,5 +1,10 @@
 show_reboot_button = True
 
+req_exercise = ""
+str_to_say = ""
+finish_workout = False
+experiment_started = False
+
 def __init__():
 
     # classes pointers

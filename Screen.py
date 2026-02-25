@@ -28,7 +28,7 @@ class Screen(tk.Tk):
         self.lift()
         self.attributes("-topmost", True)
         self.focus_force()
-
+        self.bind("<Escape>", lambda e: self.attributes("-fullscreen", False))
 
     def switch_frame(self, frame_class):
         new_frame = frame_class(self)
