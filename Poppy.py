@@ -7,14 +7,32 @@ from Audio import say
 
 class Poppy(threading.Thread):
 
+    # def __init__(self):
+    #     threading.Thread.__init__(self)
+    #     #self.poppy = PoppyTorso()  # for real robot
+    #     self.poppy = PoppyTorso(simulator='vrep')  # for simulator
+    #     print("ROBOT INITIALIZATION")
+    #     for m in self.poppy.motors:  # motors need to be initialized, False=stiff, True=loose
+    #         m.compliant = False
+    #     self.init_robot()
+
     def __init__(self):
         threading.Thread.__init__(self)
-        #self.poppy = PoppyTorso()  # for real robot
-        self.poppy = PoppyTorso(simulator='vrep')  # for simulator
-        print("ROBOT INITIALIZATION")
-        for m in self.poppy.motors:  # motors need to be initialized, False=stiff, True=loose
+        
+        # Settings --> GET FLAG IF ITS SIMULATOR OR REAL ROBOOT
+        if s.RUN_MODE == 'ROBOT':
+            print("--- CONNECTING TO REAL POPPY ---")
+            self.poppy = PoppyTorso()
+        else:
+            print("--- CONNECTING TO SIMULATOR ---")
+            self.poppy = PoppyTorso(simulator='vrep')
+            
+        print("ROBOT INITIALIZATION DONE")
+        for m in self.poppy.motors:
             m.compliant = False
         self.init_robot()
+
+
 
     def init_robot(self):
         for m in self.poppy.motors:

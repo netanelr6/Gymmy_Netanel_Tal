@@ -52,3 +52,14 @@ def __init__():
     global corrective_feedback
     global one_hand
 
+
+# --- New Experiment Control Variables (Added below) ---
+global RUN_MODE
+global experiment_started
+global WORKFLOW_MODE
+global str_to_say
+
+RUN_MODE = 'SIM'          # 'SIM' OR 'ROBOT'
+experiment_started = False
+WORKFLOW_MODE = 1        # 1=Normal, 2=Hardware, 3=Interactio
+show_reboot_button = True 

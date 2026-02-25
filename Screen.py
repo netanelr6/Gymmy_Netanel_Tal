@@ -7,23 +7,38 @@ import Settings as s
 import random
 
 
+
+
 class Screen(tk.Tk):
     def __init__(self):
-        print("screen start")
         tk.Tk.__init__(self, className='Poppy')
         self._frame = None
-        self.switch_frame(EyesPage)
+        
+        # robot or simulation on pc
+        if s.RUN_MODE == 'ROBOT':
+            self.attributes('-fullscreen', True) 
+        else:
+            self.geometry("800x600") 
+            
+        self.switch_frame(SelectPage)
+        # self.switch_frame(EyesPage)
         self["bg"] = "#F3FCFB"
+        
+        # גורם לחלון לקפוץ קדימה מעל ה-VS Code
+        self.lift()
+        self.attributes("-topmost", True)
+        self.focus_force()
+
 
     def switch_frame(self, frame_class):
-        """Destroys current frame and replaces it with a new one."""
         new_frame = frame_class(self)
         if self._frame is not None:
-            if hasattr(self._frame, 'background_label'):
-                self._frame.background_label.destroy()
             self._frame.destroy()
         self._frame = new_frame
-        self._frame.pack()
+        self._frame.pack(expand=True, fill="both")
+        # self._frame.pack(expand=True)
+
+
 
 
 class EyesPage(tk.Frame):
@@ -61,6 +76,37 @@ class FullScreenApp(object):
         self.master.geometry(self._geom)
         self._geom = geom
 
+class SelectPage(tk.Frame):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master, bg="#F3FCFB")
+        tk.Label(self, text="Researcher Control", font=("Helvetica", 24), bg="#F3FCFB").pack(pady=20)
+        
+        # Neutral buttons for the researcher
+        btn_style = {"font": ("Helvetica", 18), "width": 15, "pady": 10}
+        tk.Button(self, text="Mode A", command=lambda: self.set_mode(1), **btn_style).pack(pady=5)
+        tk.Button(self, text="Mode B", command=lambda: self.set_mode(2), **btn_style).pack(pady=5)
+        tk.Button(self, text="Mode C", command=lambda: self.set_mode(3), **btn_style).pack(pady=5)
+
+    def set_mode(self, mode):
+        s.WORKFLOW_MODE = mode
+        # Set flags based on choice
+        s.hardwere_aff = (mode == 2)
+        s.inter_aff = (mode == 3)
+        # Transition to the neutral "Waiting" page
+        self.master.switch_frame(WaitingPage)
+
+class WaitingPage(tk.Frame):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master, bg="#F3FCFB")
+        tk.Label(self, text="System is ready", font=("Helvetica", 30), bg="#F3FCFB").pack(pady=100)
+        
+        # This is the button the experimenter presses when the participant is ready
+        tk.Button(self, text="START EXPERIMENT", font=("Helvetica", 24, "bold"), 
+                  bg="green", fg="white", command=self.go, padx=50, pady=20).pack()
+
+    def go(self):
+        s.experiment_started = True
+        self.master.switch_frame(EyesPage)
 
 if __name__ == "__main__":
     s.screen = Screen()
