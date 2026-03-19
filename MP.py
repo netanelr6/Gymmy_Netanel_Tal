@@ -15,6 +15,9 @@ class MP(threading.Thread):
         threading.Thread.__init__(self)
         print("MP INITIALIZATION")
 
+
+
+    
     def run(self):
         print("MP START")
         recorded_data = []
@@ -23,7 +26,11 @@ class MP(threading.Thread):
         mp_drawing_styles = mp.solutions.drawing_styles
         mp_pose = mp.solutions.pose
 
-        cap = cv2.VideoCapture(0) # 0 - webcam, 2 - second USB in maya's computer
+        # cap = cv2.VideoCapture(0) # 0 - webcam, 2 - second USB in maya's computer --->OLD
+        if s.RUN_MODE.lower() == 'sim':
+            cap = cv2.VideoCapture(s.camera_num, cv2.CAP_DSHOW) 
+        else:
+            cap = cv2.VideoCapture(s.camera_num) 
         image_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float `width`
         # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1680)
         image_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)  # float `height`
