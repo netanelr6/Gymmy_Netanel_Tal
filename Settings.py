@@ -66,7 +66,7 @@ def __init__():
 
 
 one_hand = False
-RUN_MODE = 'ROBOT'          # 'SIM' OR 'ROBOT'
+RUN_MODE = 'SIM'          # 'SIM' OR 'ROBOT'
 experiment_started = False
 WORKFLOW_MODE = 1        # 1=Normal, 2=Hardware, 3=Interactio
 show_reboot_button = True 
