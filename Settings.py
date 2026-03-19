@@ -58,11 +58,11 @@ def __init__():
     global one_hand
 
 
-# --- New Experiment Control Variables (Added below) ---
-global RUN_MODE
-global experiment_started
-global WORKFLOW_MODE
-global str_to_say
+    # --- New Experiment Control Variables (Added below) ---
+    global RUN_MODE
+    global experiment_started
+    global WORKFLOW_MODE
+    global str_to_say
 
 
 one_hand = False
