@@ -64,6 +64,8 @@ global experiment_started
 global WORKFLOW_MODE
 global str_to_say
 
+
+one_hand = False
 RUN_MODE = 'ROBOT'          # 'SIM' OR 'ROBOT'
 experiment_started = False
 WORKFLOW_MODE = 1        # 1=Normal, 2=Hardware, 3=Interactio
