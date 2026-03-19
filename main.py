@@ -29,7 +29,8 @@ def initialize_experiment_settings():
     """
     Setup basic experiment parameters and folder paths
     """
-    s.camera_num = 0  # Default camera index
+    
+    s.camera_num = 0 if s.RUN_MODE.lower() == 'sim' else 1  # Default camera index for 'sim' | 1 for robot
     language = 'Hebrew'
     gender = 'Male'
     s.audio_path = f'audio files/{language}/{gender}/'
