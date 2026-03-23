@@ -1,0 +1,8 @@
+echo --- Run_GYMMY_Standard.bat ---
+
+@echo off
+cd /d "C:\Users\Administrator\Documents\NetanelAndTal\GM\gymmy_Netanel_Tal"
+echo --- Starting GYMMY ---
+:: Python will automatically read GYMMY_MODE=ROBOT from Windows
+python main.py
+pause

@@ -1,0 +1,24 @@
+@echo off
+:: הגדרת נתיבים (תוודא שהם נכונים אצלך)
+set COPPELIA_PATH="C:\Program Files\CoppeliaRobotics\CoppeliaSimEdu\coppeliaSim.exe"
+set PROJECT_PATH="C:\Users\netan\Documents\GYMMY\Code 24.02.26\Gymmy-master"
+
+cd /d %PROJECT_PATH%
+
+echo [1/4] Pulling latest changes from GitHub...
+git pull origin main
+
+echo [2/4] Launching CoppeliaSim (Auto-Start Mode)...
+:: The -s flag starts the simulation automatically on launch
+start "" %COPPELIA_PATH% -s
+
+echo [3/4] Waiting 10 seconds for simulator to initialize...
+timeout /t 10 /nobreak > nul
+
+echo [4/4] Activating environment and running Gymmy...
+call venv\Scripts\activate
+python main.py
+
+echo.
+echo Gymmy session finished.
+pause
