@@ -83,15 +83,12 @@ class SelectPage(tk.Frame):
         
         # Neutral buttons for the researcher
         btn_style = {"font": ("Helvetica", 18), "width": 15, "pady": 10}
-        tk.Button(self, text="Mode A", command=lambda: self.set_mode(1), **btn_style).pack(pady=5)
-        tk.Button(self, text="Mode B", command=lambda: self.set_mode(2), **btn_style).pack(pady=5)
-        tk.Button(self, text="Mode C", command=lambda: self.set_mode(3), **btn_style).pack(pady=5)
+        tk.Button(self, text="Mode A", command=lambda: self.set_mode(0), **btn_style).pack(pady=5)
+        tk.Button(self, text="Mode B", command=lambda: self.set_mode(1), **btn_style).pack(pady=5)
+        tk.Button(self, text="Mode C", command=lambda: self.set_mode(2), **btn_style).pack(pady=5)
 
     def set_mode(self, mode):
         s.WORKFLOW_MODE = mode
-        # Set flags based on choice
-        s.hardwere_aff = (mode == 2)
-        s.inter_aff = (mode == 3)
         # Transition to the neutral "Waiting" page
         self.master.switch_frame(WaitingPage)
 
