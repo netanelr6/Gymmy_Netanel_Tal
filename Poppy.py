@@ -38,6 +38,7 @@ class Poppy(threading.Thread):
         for m in self.poppy.motors:
             if not m.name == 'r_elbow_y' and not m.name == 'l_elbow_y' and not m.name == 'head_y':
                 m.goto_position(0, 1, wait=True)
+        self.poppy.abs_z.goto_position(15, 1, wait=True)
         self.poppy.head_y.goto_position(-20, 1, wait=True)
         self.poppy.r_elbow_y.goto_position(90, 1, wait=True)
         self.poppy.l_elbow_y.goto_position(90, 1, wait=True)
@@ -198,6 +199,9 @@ class Poppy(threading.Thread):
 
     # Ex4 - open and close arms
     def open_and_close_arms(self, counter):
+        if s.reboot_flag is True:
+            s.hardwere_aff = False
+            s.inter_aff = False
         if counter == 0:
             if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
                 self.poppy.l_shoulder_y.goto_position(-90, 2, wait=False)
@@ -252,6 +256,9 @@ class Poppy(threading.Thread):
 
     # EX5 - open and close arms 90
     def open_and_close_arms_90(self, counter):
+        if s.reboot_flag is True:
+            s.hardwere_aff = False
+            s.inter_aff = False
         if counter == 0:
             if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
                 self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
@@ -334,6 +341,9 @@ class Poppy(threading.Thread):
 
     # EX 6 raise_arms_forward - one hand
     def raise_arms_forward_one_hand(self, counter):
+        if s.reboot_flag is True:
+            s.hardwere_aff = False
+            s.inter_aff = False
         if s.one_hand == 'right':  # mirror demo
             self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
             self.poppy.l_arm_z.goto_position(-90, 1.5, wait=False)

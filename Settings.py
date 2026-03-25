@@ -1,6 +1,7 @@
 import os
 
 show_reboot_button = True
+reboot_flag = False
 
 req_exercise = ""
 str_to_say = ""
