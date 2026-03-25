@@ -88,9 +88,12 @@ class SelectPage(tk.Frame):
         tk.Button(self, text="Mode C", command=lambda: self.set_mode(2), **btn_style).pack(pady=5)
 
     def set_mode(self, mode):
-        s.WORKFLOW_MODE = mode
+        # s.WORKFLOW_MODE = mode
+        # s.Team_Number = s.WORKFLOW_MODE
+        s.Team_Number = mode        
         # Transition to the neutral "Waiting" page
         self.master.switch_frame(WaitingPage)
+
 
 class WaitingPage(tk.Frame):
     def __init__(self, master):
