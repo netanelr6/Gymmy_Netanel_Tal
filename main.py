@@ -41,7 +41,6 @@ def initialize_experiment_settings():
     s.participant_code = current_time.strftime("%d.%m_%H.%M.%S")
 
     # Original system variables4
-    s.Team_Number = s.WORKFLOW_MODE
     s.exercise_amount = 6
     s.rep = 3 
     s.waved = False
