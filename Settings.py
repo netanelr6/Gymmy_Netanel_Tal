@@ -7,6 +7,39 @@ str_to_say = ""
 finish_workout = False
 experiment_started = False
 
+one_hand = False
+experiment_started = False
+WORKFLOW_MODE = 1        # 1=Normal, 2=Hardware, 3=Interactio
+show_reboot_button = True 
+    
+
+# RUN_MODE = 'SIM'          # 'SIM' OR 'ROBOT'
+RUN_MODE = os.getenv('GYMMY_MODE', 'SIM')
+"""
+    GYMMY RUN_MODE CONFIGURATION:
+    -----------------------------
+    This variable determines if the system runs in Simulation ('SIM') or on the Physical Robot ('ROBOT').
+    To avoid manual code changes when moving between PC and Robot, we use an Environment Variable.
+    
+    HOW TO CONFIGURE ON A NEW ROBOT:
+    1. Open 'Edit the system environment variables' in Windows.
+    2. Click 'Environment Variables'.
+    3. Under 'User variables', click 'New'.
+    4. Variable name: GYMMY_MODE
+    5. Variable value: ROBOT
+    6. Restart your IDE (PyCharm) or Terminal to apply changes.
+    
+    If NO environment variable is found, the system defaults to 'SIM'.
+"""
+    
+
+
+
+
+
+
+
+
 def __init__():
 
     # classes pointers
@@ -67,29 +100,4 @@ def __init__():
     global str_to_say
 
 
-    one_hand = False
-    experiment_started = False
-    WORKFLOW_MODE = 1        # 1=Normal, 2=Hardware, 3=Interactio
-    show_reboot_button = True 
-    
-
-    # RUN_MODE = 'SIM'          # 'SIM' OR 'ROBOT'
-    RUN_MODE = os.getenv('GYMMY_MODE', 'SIM')
-    """
-    GYMMY RUN_MODE CONFIGURATION:
-    -----------------------------
-    This variable determines if the system runs in Simulation ('SIM') or on the Physical Robot ('ROBOT').
-    To avoid manual code changes when moving between PC and Robot, we use an Environment Variable.
-    
-    HOW TO CONFIGURE ON A NEW ROBOT:
-    1. Open 'Edit the system environment variables' in Windows.
-    2. Click 'Environment Variables'.
-    3. Under 'User variables', click 'New'.
-    4. Variable name: GYMMY_MODE
-    5. Variable value: ROBOT
-    6. Restart your IDE (PyCharm) or Terminal to apply changes.
-    
-    If NO environment variable is found, the system defaults to 'SIM'.
-    """
-    
 
