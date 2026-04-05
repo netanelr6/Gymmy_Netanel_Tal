@@ -90,18 +90,18 @@ class Poppy(threading.Thread):
 
     # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
-        hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
-                    self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
-                    self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False),
-                    self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)]
-        time.sleep(2)
-        hands_down = [self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False),
-                      self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
-                      self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False),
-                      self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)]
+        hands_up = [self.poppy.l_shoulder_x.goto_position(90, 2.5, wait=False),
+                    self.poppy.l_elbow_y.goto_position(90, 2.5, wait=False),
+                    self.poppy.r_shoulder_x.goto_position(-90, 2.5, wait=False),
+                    self.poppy.r_elbow_y.goto_position(90, 2.5, wait=False)]
+        time.sleep(2.5)
+        hands_down = [self.poppy.l_shoulder_x.goto_position(0, 2.5, wait=False),
+                      self.poppy.l_elbow_y.goto_position(90, 2.5, wait=False),
+                      self.poppy.r_shoulder_x.goto_position(0, 2.5, wait=False),
+                      self.poppy.r_elbow_y.goto_position(90, 2.5, wait=False)]
         if s.robot_count:
             say(str(counter + 1))
-        time.sleep(1.8)
+        time.sleep(2.5)
 
             # EX1.1 - Super Raise arms horizontally
     def raise_arms_horizontally_super(self, counter):
