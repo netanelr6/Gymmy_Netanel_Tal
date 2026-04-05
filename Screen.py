@@ -49,16 +49,23 @@ class EyesPage(tk.Frame):
         tk.Label(self, image=self.photo_image).pack()
 
         if s.show_reboot_button:
-            self.reboot_btn = tk.Button(self, text="אתחול /Reboot", font=("Helvetica", 24, "bold"), bg="blue", fg="white", command=self.reboot)
+            self.reboot_btn = tk.Button(self, text="אתחול / Reboot", 
+                            font=("Helvetica", 40, "bold"), # הגדלנו מ-24 ל-40
+                            bg="blue", fg="white", 
+                            padx=30, pady=15, # ריווח פנימי כדי להשמין את הכפתור
+                            command=self.reboot)
             self.reboot_btn.place(relx=0.95, rely=0.05, anchor="ne")
+           # self.reboot_btn = tk.Button(self, text="אתחול /Reboot", font=("Helvetica", 24, "bold"), bg="blue", fg="white", command=self.reboot)
+           # self.reboot_btn.place(relx=0.95, rely=0.05, anchor="ne")
 
     def reboot(self):
         print("Reboot performed: Resetting inter_aff and hardwere_aff")
         # s.say("Reboot")
         if s.hardwere_aff:
             print("Resetting robot...")
-        s.reboot_flag = True
-        print(s.hardwere_aff)
+            s.reboot_flag = True
+        elif s.inter_aff:
+            s.inter_aff = True
 
 
 class FullScreenApp(object):
