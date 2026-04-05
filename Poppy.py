@@ -105,18 +105,25 @@ class Poppy(threading.Thread):
 
             # EX1.1 - Super Raise arms horizontally
     def raise_arms_horizontally_super(self, counter):
-        hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
-                    self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
-                    self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False),
-                    self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)]
-        time.sleep(2)
-        hands_down = [self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False),
-                      self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
-                      self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False),
-                      self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)]
+        movement_time = 2.5 
+        
+        # שינינו מ-90 ומינוס 90 ל-75 ומינוס 75
+        hands_up = [self.poppy.l_shoulder_x.goto_position(75, movement_time, wait=False),
+                    self.poppy.l_elbow_y.goto_position(10, movement_time, wait=False), 
+                    self.poppy.r_shoulder_x.goto_position(-75, movement_time, wait=False),
+                    self.poppy.r_elbow_y.goto_position(10, movement_time, wait=False)]
+        
+        time.sleep(movement_time)
+        
+        hands_down = [self.poppy.l_shoulder_x.goto_position(0, movement_time, wait=False),
+                      self.poppy.l_elbow_y.goto_position(10, movement_time, wait=False),
+                      self.poppy.r_shoulder_x.goto_position(0, movement_time, wait=False),
+                      self.poppy.r_elbow_y.goto_position(10, movement_time, wait=False)]
+        
         if s.robot_count:
             say(str(counter + 1))
-        time.sleep(1.8)
+            
+        time.sleep(movement_time)
 
     # EX2 - Bend Elbows
     def bend_elbows(self, counter):
