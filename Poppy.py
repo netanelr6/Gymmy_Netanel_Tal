@@ -90,7 +90,7 @@ class Poppy(threading.Thread):
 
 # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
-        movement_time = 2.5 
+        movement_time = 1.5 
         
         # === עולים למעלה ===
         self.poppy.l_shoulder_x.goto_position(80, movement_time, wait=False)
