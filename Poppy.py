@@ -121,10 +121,10 @@ class Poppy(threading.Thread):
     # EX2 - Bend Elbows
     def bend_elbows(self, counter):
         if s.Team_Number == 1 and not s.hardwere_aff:
-            say("Hardwere_Sound")
+            #say("Hardwere_Sound")
             s.hardwere_aff = True
         if s.Team_Number == 2 and not s.inter_aff:
-            say ("Error_Sound")
+            #say ("Error_Sound")
             s.inter_aff = True
         self.poppy.r_arm[3].goto_position(-60, 1.5, wait=False)
         if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
