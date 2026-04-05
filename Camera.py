@@ -347,17 +347,20 @@ class Camera(threading.Thread):
             right_hand_data = right_hand_data.dropna().to_numpy()
             left_hand_data = df.iloc[1]
             left_hand_data = left_hand_data.dropna().to_numpy()
-
-            features = feature_extraction(right_hand_data, left_hand_data)
-            exercise = exercise_name
-            predictions = predict_performance(features, exercise, s.adaptation_model_name)
-            if exercise in s.performance_class:
-                current_time = datetime.datetime.now()
-                s.performance_class[exercise + str(current_time.minute) + str(current_time.second)] = {'right': predictions[1], 'left': predictions[0]}
-            else:
-                s.performance_class[exercise] = {'right': predictions[1], 'left': predictions[0]}
-            print(f"CAMERA: performance classification {s.performance_class}")
+            
             plot_data(exercise_name, right_hand_data, left_hand_data)  # only for internal checks comparing plot to classification
+
+            
+            if s.adaptive:
+                features = feature_extraction(right_hand_data, left_hand_data)
+                exercise = exercise_name
+                predictions = predict_performance(features, exercise, s.adaptation_model_name)
+                if exercise in s.performance_class:
+                    current_time = datetime.datetime.now()
+                    s.performance_class[exercise + str(current_time.minute) + str(current_time.second)] = {'right': predictions[1], 'left': predictions[0]}
+                else:
+                    s.performance_class[exercise] = {'right': predictions[1], 'left': predictions[0]}
+                print(f"CAMERA: performance classification {s.performance_class}")
         else:
             s.performance_class[exercise_name] = {'right': 1, 'left': 1}  # the exercise was not performed enough times
 
