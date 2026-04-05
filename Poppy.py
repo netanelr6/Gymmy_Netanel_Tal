@@ -90,23 +90,21 @@ class Poppy(threading.Thread):
 
 # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
-        # זמן התנועה המעודכן - פשרה מעולה בין מהירות לזרימה
-        movement_time = 2.0 
+        movement_time = 2.5 
         
-        # עלינו ל-85 מעלות (כמעט גובה כתף מלא, בלי לשרוף מנוע)
-        hands_up = [self.poppy.l_shoulder_x.goto_position(85, movement_time, wait=False),
-                    self.poppy.l_elbow_y.goto_position(10, movement_time, wait=False), 
-                    self.poppy.r_shoulder_x.goto_position(-85, movement_time, wait=False),
-                    self.poppy.r_elbow_y.goto_position(10, movement_time, wait=False)]
+        # כתפיים ב-80 מעלות (למניעת קריסת עומס), מרפקים ב-90 מעלות כמו שביקשת
+        hands_up = [self.poppy.l_shoulder_x.goto_position(80, movement_time, wait=False),
+                    self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False), 
+                    self.poppy.r_shoulder_x.goto_position(-80, movement_time, wait=False),
+                    self.poppy.r_elbow_y.goto_position(90, movement_time, wait=False)]
         
-        # ההמתנה מסונכרנת
         time.sleep(movement_time)
         
-        # הורדת ידיים חזרה למטה
+        # ירידה למטה (מרפקים נשארים ב-90 לפי הקוד המקורי שלך)
         hands_down = [self.poppy.l_shoulder_x.goto_position(0, movement_time, wait=False),
-                      self.poppy.l_elbow_y.goto_position(10, movement_time, wait=False),
+                      self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False),
                       self.poppy.r_shoulder_x.goto_position(0, movement_time, wait=False),
-                      self.poppy.r_elbow_y.goto_position(10, movement_time, wait=False)]
+                      self.poppy.r_elbow_y.goto_position(90, movement_time, wait=False)]
         
         if s.robot_count:
             say(str(counter + 1))
