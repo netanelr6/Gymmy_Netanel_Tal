@@ -174,14 +174,15 @@ class Camera(threading.Thread):
                     print("Corrective feedback true - Try to raise your hands more")
                 if not flag:
                     print("Corrective feedback false - Try to close your hands more")
-        if s.adaptive:
-            try:
-                if angle_classification == "first":
+        # if s.adaptive:
+        try:
+            if angle_classification == "first":
                     self.classify_performance(list_joints, exercise_name, 12, 13, counter)
-                else:
-                    self.classify_performance(list_joints, exercise_name, 14, 15, counter)
-            except Exception as e:
+            else:
+                    self.classify_performance(list_joints, exercise_name, 14, 15, counter)        
+        except Exception as e:
                 print (f"can't do classification {e}")
+            
         if s.one_hand=='right':
             exercise_name = exercise_name[:-9]
         elif s.one_hand=='left':
@@ -234,8 +235,9 @@ class Camera(threading.Thread):
                 if not flag:
                     print("Try to close your hands more")
 
-        if s.adaptive:
-            self.classify_performance(list_joints, exercise_name, 6, 7, counter)
+        # if s.adaptive:
+        self.classify_performance(list_joints, exercise_name, 6, 7, counter)
+            
         s.ex_list.append([exercise_name, counter])
         Excel.wf_joints(exercise_name, list_joints)
 
