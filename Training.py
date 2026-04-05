@@ -146,7 +146,7 @@ class Training(threading.Thread):
         s.success_exercise = False
         print("TRAINING: Exercise ", name, " start")
         say(name+hand)
-        time.sleep(3)  # Delay the robot movement after the audio is played
+        time.sleep(1.5)  # Delay the robot movement after the audio is played
         s.req_exercise = name
         while s.req_exercise == name:
             time.sleep(0.001)  # Prevents the MP to stuck
