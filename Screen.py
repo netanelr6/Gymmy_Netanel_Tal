@@ -65,7 +65,7 @@ class EyesPage(tk.Frame):
             print("Resetting robot...")
             s.reboot_flag = True
         elif s.inter_aff:
-            s.inter_aff = True
+            s.inter_aff = False
 
 
 class FullScreenApp(object):
