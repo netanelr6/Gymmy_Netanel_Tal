@@ -1,5 +1,8 @@
 import os
 
+
+adaptation_model_name = "default_model" 
+
 show_reboot_button = True
 reboot_flag = False
 
