@@ -88,20 +88,30 @@ class Poppy(threading.Thread):
         self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
 
-    # EX1 - Raise arms horizontally
+# EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
-        hands_up = [self.poppy.l_shoulder_x.goto_position(90, 2.5, wait=False),
-                    self.poppy.l_elbow_y.goto_position(90, 2.5, wait=False),
-                    self.poppy.r_shoulder_x.goto_position(-90, 2.5, wait=False),
-                    self.poppy.r_elbow_y.goto_position(90, 2.5, wait=False)]
-        time.sleep(2.5)
-        hands_down = [self.poppy.l_shoulder_x.goto_position(0, 2.5, wait=False),
-                      self.poppy.l_elbow_y.goto_position(90, 2.5, wait=False),
-                      self.poppy.r_shoulder_x.goto_position(0, 2.5, wait=False),
-                      self.poppy.r_elbow_y.goto_position(90, 2.5, wait=False)]
+        # זמן התנועה המעודכן - פשרה מעולה בין מהירות לזרימה
+        movement_time = 2.0 
+        
+        # עלינו ל-85 מעלות (כמעט גובה כתף מלא, בלי לשרוף מנוע)
+        hands_up = [self.poppy.l_shoulder_x.goto_position(85, movement_time, wait=False),
+                    self.poppy.l_elbow_y.goto_position(10, movement_time, wait=False), 
+                    self.poppy.r_shoulder_x.goto_position(-85, movement_time, wait=False),
+                    self.poppy.r_elbow_y.goto_position(10, movement_time, wait=False)]
+        
+        # ההמתנה מסונכרנת
+        time.sleep(movement_time)
+        
+        # הורדת ידיים חזרה למטה
+        hands_down = [self.poppy.l_shoulder_x.goto_position(0, movement_time, wait=False),
+                      self.poppy.l_elbow_y.goto_position(10, movement_time, wait=False),
+                      self.poppy.r_shoulder_x.goto_position(0, movement_time, wait=False),
+                      self.poppy.r_elbow_y.goto_position(10, movement_time, wait=False)]
+        
         if s.robot_count:
             say(str(counter + 1))
-        time.sleep(2.5)
+            
+        time.sleep(movement_time)
 
             # EX1.1 - Super Raise arms horizontally
     def raise_arms_horizontally_super(self, counter):
