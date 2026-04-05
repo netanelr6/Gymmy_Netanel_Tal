@@ -51,7 +51,7 @@ def initialize_experiment_settings():
     s.camera_done = False
     s.robot_count = True
     s.try_again = False
-    s.adaptive = True # False
+    s.adaptive =  False # True #
     s.corrective_feedback = False
 
 if __name__ == '__main__':
