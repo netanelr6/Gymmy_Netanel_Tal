@@ -12,7 +12,7 @@ one_hand = False
 experiment_started = False
 WORKFLOW_MODE = 1        # 1=Normal, 2=Hardware, 3=Interactio
 show_reboot_button = True 
-    
+performance_class = {}
 
 # RUN_MODE = 'SIM'          # 'SIM' OR 'ROBOT'
 RUN_MODE = os.getenv('GYMMY_MODE', 'SIM')
