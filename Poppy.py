@@ -117,7 +117,7 @@ class Poppy(threading.Thread):
 
             # EX1.1 - Super Raise arms horizontally
     def raise_arms_horizontally_super(self, counter):
-        movement_time = 2.5 
+        movement_time = 3 
         
         # שינינו מ-90 ומינוס 90 ל-75 ומינוס 75
         hands_up = [self.poppy.l_shoulder_x.goto_position(75, movement_time, wait=False),
