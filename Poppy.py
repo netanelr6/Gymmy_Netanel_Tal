@@ -92,24 +92,28 @@ class Poppy(threading.Thread):
     def raise_arms_horizontally(self, counter):
         movement_time = 2.5 
         
-        # כתפיים ב-80 מעלות (למניעת קריסת עומס), מרפקים ב-90 מעלות כמו שביקשת
-        hands_up = [self.poppy.l_shoulder_x.goto_position(80, movement_time, wait=False),
-                    self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False), 
-                    self.poppy.r_shoulder_x.goto_position(-80, movement_time, wait=False),
-                    self.poppy.r_elbow_y.goto_position(90, movement_time, wait=False)]
+        # === עולים למעלה ===
+        self.poppy.l_shoulder_x.goto_position(80, movement_time, wait=False)
+        self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False)
+        self.poppy.r_shoulder_x.goto_position(-80, movement_time, wait=False)
+        # שינוי קריטי: המנוע האחרון הוא wait=True. הקוד יעצור כאן עד שהרובוט יסיים פיזית את התנועה!
+        self.poppy.r_elbow_y.goto_position(90, movement_time, wait=True) 
         
-        time.sleep(movement_time)
+        # מוסיפים השהייה קטנטנה למראה אנושי - שהרובוט יחזיק את הידיים באוויר לשליש שנייה לפני שירד
+        time.sleep(0.3)
         
-        # ירידה למטה (מרפקים נשארים ב-90 לפי הקוד המקורי שלך)
-        hands_down = [self.poppy.l_shoulder_x.goto_position(0, movement_time, wait=False),
-                      self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False),
-                      self.poppy.r_shoulder_x.goto_position(0, movement_time, wait=False),
-                      self.poppy.r_elbow_y.goto_position(90, movement_time, wait=False)]
+        # === יורדים למטה ===
+        self.poppy.l_shoulder_x.goto_position(0, movement_time, wait=False)
+        self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False)
+        self.poppy.r_shoulder_x.goto_position(0, movement_time, wait=False)
+        # שוב, מוודאים שהירידה הושלמה ב-100% לפני שממשיכים לחזרה הבאה
+        self.poppy.r_elbow_y.goto_position(90, movement_time, wait=True)
         
         if s.robot_count:
             say(str(counter + 1))
             
-        time.sleep(movement_time)
+        # זמן מנוחה למטה לפני החזרה הבאה
+        time.sleep(0.5)
 
             # EX1.1 - Super Raise arms horizontally
     def raise_arms_horizontally_super(self, counter):
