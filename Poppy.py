@@ -90,30 +90,30 @@ class Poppy(threading.Thread):
 
 # EX1 - Raise arms horizontally
     def raise_arms_horizontally(self, counter):
-        movement_time = 2 
+        movement_time = 1.5 
         
         # === עולים למעלה ===
         self.poppy.l_shoulder_x.goto_position(80, movement_time, wait=False)
         self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False)
         self.poppy.r_shoulder_x.goto_position(-80, movement_time, wait=False)
         # שינוי קריטי: המנוע האחרון הוא wait=True. הקוד יעצור כאן עד שהרובוט יסיים פיזית את התנועה!
-        self.poppy.r_elbow_y.goto_position(90, movement_time, wait=True) 
+        self.poppy.r_elbow_y.goto_position(90, movement_time, wait=False) 
         
         # מוסיפים השהייה קטנטנה למראה אנושי - שהרובוט יחזיק את הידיים באוויר לשליש שנייה לפני שירד
-        time.sleep(0.3)
+        time.sleep(2)
         
         # === יורדים למטה ===
         self.poppy.l_shoulder_x.goto_position(0, movement_time, wait=False)
         self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False)
         self.poppy.r_shoulder_x.goto_position(0, movement_time, wait=False)
         # שוב, מוודאים שהירידה הושלמה ב-100% לפני שממשיכים לחזרה הבאה
-        self.poppy.r_elbow_y.goto_position(90, movement_time, wait=True)
+        self.poppy.r_elbow_y.goto_position(90, movement_time, wait=False)
         
         if s.robot_count:
             say(str(counter + 1))
             
         # זמן מנוחה למטה לפני החזרה הבאה
-        time.sleep(0.5)
+        time.sleep(1.8)
 
             # EX1.1 - Super Raise arms horizontally
     def raise_arms_horizontally_super(self, counter):
