@@ -139,6 +139,8 @@ class Training(threading.Thread):
                 elif s.Team_Number == 2:
                     s.inter_aff = True
             time.sleep(2) # wait between exercises
+            if s.show_reboot_button:
+                s.hardwere_aff = False
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
                 print("not done")
