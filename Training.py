@@ -1,5 +1,8 @@
 import threading
 import time
+
+from sympy import false
+
 import Settings as s
 import Excel
 import random
@@ -123,15 +126,30 @@ class Training(threading.Thread):
     def training_session(self):
         print("Training: start exercises")
         # TODO - adding random choice of exercises.
-        exercise_names = ["raise_arms_horizontally", "raise_arms",
-                             "raise_arms_bend_elbows", "bend_elbows", "open_and_close_arms",
-                          "open_and_close_arms_90", "raise_arms_forward"]
+        #exercise_names = ["raise_arms_horizontally", "raise_arms",
+        #                    "raise_arms_bend_elbows", "bend_elbows", "open_and_close_arms",
+        #               "open_and_close_arms_90", "raise_arms_forward"]
+        exercise_names = ["bend_elbows", "open_and_close_arms",
+                       "open_and_close_arms_90", "raise_arms_forward"]
+
         for e in exercise_names:
+            if e is "bend_elbows" :
+                if s.Team_Number == 1:
+                    s.hardwere_aff = True
+                elif s.Team_Number == 2:
+                    s.inter_aff = True
             time.sleep(2) # wait between exercises
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
                 print("not done")
                 time.sleep(1)
+            if (s.hardwere_aff and s.reboot_flag):
+                s.hardwere_aff = False
+                self.run_exercise(e)
+                while (not s.poppy_done) or (not s.camera_done):
+                    print("not done")
+                    time.sleep(1)
+
 
     def finish_workout(self):
         say('goodbye')

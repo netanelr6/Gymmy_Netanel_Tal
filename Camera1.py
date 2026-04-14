@@ -174,14 +174,15 @@ class Camera(threading.Thread):
                     print("Corrective feedback true - Try to raise your hands more")
                 if not flag:
                     print("Corrective feedback false - Try to close your hands more")
-        if s.adaptive:
-            try:
-                if angle_classification == "first":
+        # if s.adaptive:
+        try:
+            if angle_classification == "first":
                     self.classify_performance(list_joints, exercise_name, 12, 13, counter)
-                else:
-                    self.classify_performance(list_joints, exercise_name, 14, 15, counter)
-            except Exception as e:
+            else:
+                    self.classify_performance(list_joints, exercise_name, 14, 15, counter)        
+        except Exception as e:
                 print (f"can't do classification {e}")
+            
         if s.one_hand=='right':
             exercise_name = exercise_name[:-9]
         elif s.one_hand=='left':
@@ -234,11 +235,18 @@ class Camera(threading.Thread):
                 if not flag:
                     print("Try to close your hands more")
 
-        if s.adaptive:
-            self.classify_performance(list_joints, exercise_name, 6, 7, counter)
+        # if s.adaptive:
+        self.classify_performance(list_joints, exercise_name, 6, 7, counter)
+            
         s.ex_list.append([exercise_name, counter])
         Excel.wf_joints(exercise_name, list_joints)
-  
+
+    def super_raise_arms_horizontally(self):
+        print("check if called")
+        self.exercise_two_angles_3d("super_raise_arms_horizontally","Hip", "Shoulder", "Wrist",80, 105, 5, 30,
+        "Shoulder", "Shoulder", "Wrist",150, 180, 80, 110,"first",True)
+        print("super_raise_arms_horizontally: function finished")
+        
     def raise_arms_horizontally(self):
         self.exercise_two_angles_3d("raise_arms_horizontally", "Hip", "Shoulder", "Wrist", 80, 105, 5, 30,
                                     "Shoulder", "Shoulder", "Wrist", 150, 180, 80, 110, "first", True)
@@ -249,12 +257,6 @@ class Camera(threading.Thread):
     def raise_arms_bend_elbows(self):
         self.exercise_two_angles_3d("raise_arms_bend_elbows", "Shoulder", "Elbow", "Wrist", 130, 180, 10, 70,
                                     "Elbow", "Shoulder", "Hip", 60, 105, 60, 105, "first")
-
-    def raise_arms(self):
-        self.exercise_two_angles_3d("raise_arms",  "Hip", "Shoulder", "Wrist", 80, 150, 80, 150,
-                                   "Shoulder", "Shoulder", "Wrist", 90, 120, 150, 175, "second",  True)
-
-
 
     def raise_arms_bend_elbows_one_hand(self):
         self.exercise_two_angles_3d("raise_arms_bend_elbows_one_hand", "Shoulder", "Elbow", "Wrist", 130, 180, 10, 70,
@@ -283,21 +285,10 @@ class Camera(threading.Thread):
     def raise_arms_forward_one_hand(self):
         self.exercise_two_angles_3d("raise_arms_forward_one_hand", "Wrist", "Shoulder", "Hip", 85, 135, 10, 50,
                                    "Shoulder", "Shoulder", "Wrist", 80, 115, 80, 115, "first", True)
-    def check_hello_wave(self):
-        print("Checking for hello_wave motion...")
-        joints = self.get_skeleton_data()  # Fetch skeleton data
-        if joints is not None:
-         right_shoulder = joints.get("R_Shoulder")
-         right_wrist = joints.get("R_Wrist")
 
-        # Check if the wrist is above the shoulder, indicating a wave
-        if right_shoulder and right_wrist and right_wrist.y > right_shoulder.y:
-            print("Hello_wave detected! Exiting function.")
-            return True  # Indicate that waving was detected
-        return False  # Indicate that no waving was detected
-
-
-
+    def raise_arms(self):
+        self.exercise_two_angles_3d("raise_arms",  "Hip", "Shoulder", "Wrist", 80, 150, 80, 150,
+                                   "Shoulder", "Shoulder", "Wrist", 90, 120, 150, 175, "second",  True)
 
     def hello_waving(self):  # check if the participant waved
         if s.try_again:
@@ -358,17 +349,20 @@ class Camera(threading.Thread):
             right_hand_data = right_hand_data.dropna().to_numpy()
             left_hand_data = df.iloc[1]
             left_hand_data = left_hand_data.dropna().to_numpy()
+            
+            #plot_dta(exercise_name, right_hand_data, left_hand_data)  # only for internal checks comparing plot to classification
 
-            features = feature_extraction(right_hand_data, left_hand_data)
-            exercise = exercise_name
-            predictions = predict_performance(features, exercise, s.adaptation_model_name)
-            if exercise in s.performance_class:
-                current_time = datetime.datetime.now()
-                s.performance_class[exercise + str(current_time.minute) + str(current_time.second)] = {'right': predictions[1], 'left': predictions[0]}
-            else:
-                s.performance_class[exercise] = {'right': predictions[1], 'left': predictions[0]}
-            print(f"CAMERA: performance classification {s.performance_class}")
-            plot_data(exercise_name, right_hand_data, left_hand_data)  # only for internal checks comparing plot to classification
+            
+            if s.adaptive:
+                features = feature_extraction(right_hand_data, left_hand_data)
+                exercise = exercise_name
+                predictions = predict_performance(features, exercise, s.adaptation_model_name)
+                if exercise in s.performance_class:
+                    current_time = datetime.datetime.now()
+                    s.performance_class[exercise + str(current_time.minute) + str(current_time.second)] = {'right': predictions[1], 'left': predictions[0]}
+                else:
+                    s.performance_class[exercise] = {'right': predictions[1], 'left': predictions[0]}
+                print(f"CAMERA: performance classification {s.performance_class}")
         else:
             s.performance_class[exercise_name] = {'right': 1, 'left': 1}  # the exercise was not performed enough times
 
@@ -382,6 +376,7 @@ class Camera(threading.Thread):
             jd = self.get_skeleton_data()  # clear data TODO check if it help
             if s.req_exercise != "":
                 print("CAMERA: Exercise ", s.req_exercise, " start")
+                Current_Exercise = s.req_exercise
                 time.sleep(1)
                 getattr(self, s.req_exercise)()
                 print("CAMERA: Exercise ", s.req_exercise, " done")
