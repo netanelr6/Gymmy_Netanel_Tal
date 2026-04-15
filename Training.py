@@ -129,7 +129,7 @@ class Training(threading.Thread):
         #exercise_names = ["raise_arms_horizontally", "raise_arms",
         #                    "raise_arms_bend_elbows", "bend_elbows", "open_and_close_arms",
         #               "open_and_close_arms_90", "raise_arms_forward"]
-        exercise_names = ["bend_elbows", "open_and_close_arms",
+        exercise_names = ["raise_arms_bend_elbows", "bend_elbows", "open_and_close_arms",
                        "open_and_close_arms_90", "raise_arms_forward"]
 
         for e in exercise_names:
@@ -139,8 +139,8 @@ class Training(threading.Thread):
                 elif s.Team_Number == 2:
                     s.inter_aff = True
             time.sleep(2) # wait between exercises
-            if s.show_reboot_button:
-                s.hardwere_aff = False
+            if s.reboot_flag:
+               s.hardwere_aff = False
             self.run_exercise(e)
             while (not s.poppy_done) or (not s.camera_done):
                 print("not done")

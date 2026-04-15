@@ -42,6 +42,7 @@ class Poppy(threading.Thread):
             if not m.name == 'r_elbow_y' and not m.name == 'l_elbow_y' and not m.name == 'head_y':
                 m.goto_position(0, 1, wait=True)
         self.poppy.abs_z.goto_position(15, 1, wait=True)
+        self.poppy.bust_x.goto_position(2, 1, wait=True)
         self.poppy.head_y.goto_position(-20, 1, wait=True)
         self.poppy.r_elbow_y.goto_position(90, 1, wait=True)
         self.poppy.l_elbow_y.goto_position(90, 1, wait=True)
