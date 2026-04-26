@@ -31,9 +31,6 @@ class Screen(tk.Tk):
         self.bind("<Escape>", lambda e: self.attributes("-fullscreen", False))
 
         self.bind_all("<Button-3>", self.reboot_from_mouse)   # קליק ימני
-
-        self.after(500, self.refresh_touch)
-
         
     def reboot_from_mouse(self, event=None):
         print("RIGHT CLICK REBOOT TRIGGERED")
