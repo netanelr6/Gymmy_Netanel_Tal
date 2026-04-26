@@ -45,7 +45,7 @@ class EyesPage(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
 
-        master.bind_all("<space>", lambda event: print("SPACE PRESSED"))
+        master.bind_all("<space>", lambda event: self.reboot())
         master.focus_force()
         
         image = Image.open('pictures//eyes.png')
