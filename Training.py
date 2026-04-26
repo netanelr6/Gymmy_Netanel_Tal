@@ -138,7 +138,7 @@ class Training(threading.Thread):
                     s.hardwere_aff = True
                 elif s.Team_Number == 2:
                     s.inter_aff = True
-            time.sleep(2) # wait between exercises
+            time.sleep(3) # wait between exercises
             if s.reboot_flag:
                s.hardwere_aff = False
             self.run_exercise(e)
