@@ -49,7 +49,7 @@ def initialize_experiment_settings():
     s.training_done = False
     s.poppy_done = False
     s.camera_done = False
-    s.robot_count = True
+    s.robot_count = False
     s.try_again = False
     s.adaptive =  False # True #
     s.corrective_feedback = False
