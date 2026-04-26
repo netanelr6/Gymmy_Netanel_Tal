@@ -159,7 +159,7 @@ class Poppy(threading.Thread):
             self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
             self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
             self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
-            self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
+            self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=True)
 
     # EX4 - Bend Elbows
     def bend_elbows(self, counter):
@@ -237,7 +237,7 @@ class Poppy(threading.Thread):
             self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
             if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
                 self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
-            self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
+            self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=True)
 
     # EX7 - raise_arms_forward
     def raise_arms_forward(self, counter):
