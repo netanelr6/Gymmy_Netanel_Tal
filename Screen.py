@@ -48,7 +48,7 @@ class EyesPage(tk.Frame):
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
 
-        master.bind("<space>", lambda event: self.reboot())
+        self.bind_all("<space>", lambda event: self.reboot())
 
     def reboot(self):
         print("Reboot performed: Resetting inter_aff and hardwere_aff")
