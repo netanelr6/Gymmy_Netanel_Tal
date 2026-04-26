@@ -44,11 +44,14 @@ class Screen(tk.Tk):
 class EyesPage(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
+
+        master.bind_all("<space>", lambda event: print("SPACE PRESSED"))
+        master.focus_force()
+        
         image = Image.open('pictures//eyes.png')
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
 
-        self.bind_all("<space>", lambda event: self.reboot())
 
     def reboot(self):
         print("Reboot performed: Resetting inter_aff and hardwere_aff")
