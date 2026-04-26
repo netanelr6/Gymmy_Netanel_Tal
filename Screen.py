@@ -5,7 +5,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import Settings as s
 import random
-import keyboard
+
 
 
 
@@ -30,19 +30,23 @@ class Screen(tk.Tk):
         self.focus_force()
         self.bind("<Escape>", lambda e: self.attributes("-fullscreen", False))
 
-        keyboard.add_hotkey("space", self.reboot_from_keyboard)
-        
-        #self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
-        #self.after(500, self.force_keyboard_focus)
+        self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
+
+        self.after(100, self.force_keyboard_focus)
+        self.after(500, self.force_keyboard_focus)
+        self.after(1000, self.force_keyboard_focus)
 
     def force_keyboard_focus(self):
+        print("forcing focus")
         self.lift()
+        self.attributes("-topmost", True)
         self.focus_force()
         self.focus_set()
+        self.after(200, lambda: self.attributes("-topmost", False))
     
-    def reboot_from_keyboard(self, event):
+    def reboot_from_keyboard(self, event=None):
         print("KEYBOARD REBOOT TRIGGERED")
-
+    
         if s.hardwere_aff:
             print("Resetting robot...")
             s.reboot_flag = True
@@ -50,7 +54,7 @@ class Screen(tk.Tk):
         elif s.inter_aff:
             print("Resetting interaction...")
             s.inter_aff = False
-
+    
         else:
             print("No reboot condition active")
         
