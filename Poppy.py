@@ -76,6 +76,8 @@ class Poppy(threading.Thread):
                 getattr(self, ex)(i)
                 if s.success_exercise:
                     break
+                if s.reboot_flag and s.hardwere_aff:
+                    break
 
 
     def hello_waving(self):
@@ -199,7 +201,7 @@ class Poppy(threading.Thread):
             if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
                 say(str(counter + 1))
         time.sleep(1)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
+        if counter >= s.rep-1 or s.success_exercise or (s.reboot_flag and s.hardwere_aff):  # TODO - Change to something that works if it finished before 8 repetitions.
             if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
                 self.poppy.l_shoulder_y.goto_position(0, 2, wait=False)
             self.poppy.r_shoulder_y.goto_position(0, 2, wait=False)
@@ -227,7 +229,7 @@ class Poppy(threading.Thread):
            if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
                 say(str(counter + 1))
         time.sleep(1)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
+        if counter >= s.rep-1 or s.success_exercise or (s.reboot_flag and s.hardwere_aff):  # TODO - Change to something that works if it finished before 8 repetitions.
             self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
             if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
                 self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
