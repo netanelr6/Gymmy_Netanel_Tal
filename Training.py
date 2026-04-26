@@ -172,6 +172,8 @@ class Training(threading.Thread):
             time.sleep(0.001)  # Prevents the MP to stuck
         if s.success_exercise:
             say(self.random_encouragement())
+        if s.reboot_flag and (s.hardwere_aff or s.inter_aff) :
+            s.say("Reboot")
         print("TRAINING: Exercise ", name, " done")
         time.sleep(1)
 
