@@ -29,6 +29,8 @@ class Screen(tk.Tk):
         self.attributes("-topmost", True)
         self.focus_force()
         self.bind("<Escape>", lambda e: self.attributes("-fullscreen", False))
+        self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
+        
 
     def switch_frame(self, frame_class):
         new_frame = frame_class(self)
@@ -48,12 +50,20 @@ class EyesPage(tk.Frame):
         self.photo_image = ImageTk.PhotoImage(image)  # self. - for keeping the photo in memory so it will be shown
         tk.Label(self, image=self.photo_image).pack()
 
-        master.bind_all("<space>", self.on_space)
-        master.focus_force()
 
-    def on_space(self, event):
-        print("SPACE DETECTED")  # לבדיקה
-        self.after(0, self.reboot)
+    def reboot_from_keyboard(self, event):
+        print("KEYBOARD REBOOT TRIGGERED")
+
+        if s.hardwere_aff:
+            print("Resetting robot...")
+            s.reboot_flag = True
+    
+        elif s.inter_aff:
+            print("Resetting interaction...")
+            s.inter_aff = False
+
+        else:
+            print("No reboot condition active")
 
     def reboot(self):
         print("Reboot performed: Resetting inter_aff and hardwere_aff")
