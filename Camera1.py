@@ -219,7 +219,7 @@ class Camera(threading.Thread):
                         flag = True
                         counter += 1
                         print(counter)
-                        if not s.robot_count:
+                        if not s.robot_count and not s.inter_aff:
                             say(str(counter))
                     if (down_lb < right_angle < down_ub) & (down_lb < left_angle < down_ub) & (flag):
                         flag = False
