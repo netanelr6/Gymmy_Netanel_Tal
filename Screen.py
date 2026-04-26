@@ -5,7 +5,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import Settings as s
 import random
-
+import keyboard
 
 
 
@@ -29,9 +29,11 @@ class Screen(tk.Tk):
         self.attributes("-topmost", True)
         self.focus_force()
         self.bind("<Escape>", lambda e: self.attributes("-fullscreen", False))
-        self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
 
-        self.after(500, self.force_keyboard_focus)
+        keyboard.add_hotkey("space", self.reboot_from_keyboard)
+        
+        #self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
+        #self.after(500, self.force_keyboard_focus)
 
     def force_keyboard_focus(self):
         self.lift()
