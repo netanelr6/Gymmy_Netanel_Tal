@@ -93,7 +93,6 @@ class Poppy(threading.Thread):
         self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
 
 # EX1 - Raise arms horizontally
-
     def raise_arms_horizontally(self, counter):
         hands_up = [self.poppy.l_shoulder_x.goto_position(90, 1.5, wait=False),
                     self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
@@ -108,74 +107,30 @@ class Poppy(threading.Thread):
             say(str(counter + 1))
         time.sleep(1.8)
 
-
-    def raise_arms_horizontally2(self, counter):
-        movement_time = 1.5
-        
-        # === עולים למעלה ===
-        self.poppy.l_shoulder_x.goto_position(85, movement_time, wait=True)
-        self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False)
-        self.poppy.r_shoulder_x.goto_position(-85, movement_time, wait=True)
-        # שינוי קריטי: המנוע האחרון הוא wait=True. הקוד יעצור כאן עד שהרובוט יסיים פיזית את התנועה!
-        self.poppy.r_elbow_y.goto_position(90, movement_time, wait=False) 
-        
-        # מוסיפים השהייה קטנטנה למראה אנושי - שהרובוט יחזיק את הידיים באוויר לשליש שנייה לפני שירד
-        time.sleep(2)
-        
-        # === יורדים למטה ===
-        self.poppy.l_shoulder_x.goto_position(0, movement_time, wait=True)
-        self.poppy.l_elbow_y.goto_position(90, movement_time, wait=False)
-        self.poppy.r_shoulder_x.goto_position(0, movement_time, wait=True)
-        # שוב, מוודאים שהירידה הושלמה ב-100% לפני שממשיכים לחזרה הבאה
-        self.poppy.r_elbow_y.goto_position(90, movement_time, wait=False)
-        
-        if s.robot_count:
-            say(str(counter + 1))
-            
-        # זמן מנוחה למטה לפני החזרה הבאה
-        time.sleep(1.8)
-
-            # EX1.1 - Super Raise arms horizontally
-    def raise_arms_horizontally_super(self, counter):
-        movement_time = 3 
-        
-        # שינינו מ-90 ומינוס 90 ל-75 ומינוס 75
-        hands_up = [self.poppy.l_shoulder_x.goto_position(75, movement_time, wait=False),
-                    self.poppy.l_elbow_y.goto_position(10, movement_time, wait=False), 
-                    self.poppy.r_shoulder_x.goto_position(-75, movement_time, wait=False),
-                    self.poppy.r_elbow_y.goto_position(10, movement_time, wait=False)]
-        
-        time.sleep(movement_time)
-        
-        hands_down = [self.poppy.l_shoulder_x.goto_position(0, movement_time, wait=False),
-                      self.poppy.l_elbow_y.goto_position(10, movement_time, wait=False),
-                      self.poppy.r_shoulder_x.goto_position(0, movement_time, wait=False),
-                      self.poppy.r_elbow_y.goto_position(10, movement_time, wait=False)]
-        
-        if s.robot_count:
-            say(str(counter + 1))
-            
-        time.sleep(movement_time)
-
-    # EX2 - Bend Elbows
-    def bend_elbows(self, counter):
-        #if s.Team_Number == 1 and not s.hardwere_aff:
-            #say("Hardwere_Sound")
-        #    s.hardwere_aff = True
-        #if s.Team_Number == 2 and not s.inter_aff:
-            #say ("Error_Sound")
-        #    s.inter_aff = True
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_arm[3].goto_position(-60, 1.5, wait=False)
-        self.poppy.r_arm[3].goto_position(-60, 1.5, wait=True)
+    # EX2 - Raise Arms
+    def raise_arms(self, counter):
+        l_hand = [self.poppy.l_shoulder_y.goto_position(-90, 2, wait=False),
+                  self.poppy.l_arm_z.goto_position(-90, 2, wait=False)]
+        r_hand = [self.poppy.r_arm_z.goto_position(90, 2, wait=False),
+                  self.poppy.r_shoulder_y.goto_position(-90, 2, wait=True)]
+        time.sleep(1)
+        self.poppy.r_shoulder_x.goto_position(-85, 1.5, wait=False)
+        self.poppy.l_shoulder_x.goto_position(95, 1.5, wait=True)
         time.sleep(1.5)
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_arm[3].goto_position(85, 1.5, wait=False)
-        self.poppy.r_arm[3].goto_position(85, 1.5, wait=True)
+        self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
+        self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=True)
         if s.robot_count:
-            if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
-                say(str(counter + 1))
-        time.sleep(1.4)
+            say(str(counter + 1))
+        time.sleep(1.8)
+        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
+            # return to init position
+            self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
+            self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
+            self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
+            self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
+            self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
+            self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=True)
+
 
     # EX3 - Raise Arms Bend Elbows
     def raise_arms_bend_elbows(self, counter):
@@ -203,6 +158,107 @@ class Poppy(threading.Thread):
             self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
             self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
             self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
+
+    # EX4 - Bend Elbows
+    def bend_elbows(self, counter):
+        #if s.Team_Number == 1 and not s.hardwere_aff:
+            #say("Hardwere_Sound")
+        #    s.hardwere_aff = True
+        #if s.Team_Number == 2 and not s.inter_aff:
+            #say ("Error_Sound")
+        #    s.inter_aff = True
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_arm[3].goto_position(-60, 1.5, wait=False)
+        self.poppy.r_arm[3].goto_position(-60, 1.5, wait=True)
+        time.sleep(1.5)
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_arm[3].goto_position(85, 1.5, wait=False)
+        self.poppy.r_arm[3].goto_position(85, 1.5, wait=True)
+        if s.robot_count:
+            if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
+                say(str(counter + 1))
+        time.sleep(1.4)
+
+    # Ex5 - open and close arms
+    def open_and_close_arms(self, counter):
+        if counter == 0:
+            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+                self.poppy.l_shoulder_y.goto_position(-90, 2, wait=False)
+            self.poppy.r_shoulder_y.goto_position(-90, 2, wait=True)
+            time.sleep(1.2)
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_shoulder_x.goto_position(95, 1.5, wait=False)
+        self.poppy.r_shoulder_x.goto_position(-85, 1.5, wait=True)
+        # self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
+        # self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
+        time.sleep(1.8)
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_shoulder_x.goto_position(0, 2, wait=False)
+        self.poppy.r_shoulder_x.goto_position(0, 2, wait=True)
+        if s.robot_count:
+            if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
+                say(str(counter + 1))
+        time.sleep(1)
+        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
+            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+                self.poppy.l_shoulder_y.goto_position(0, 2, wait=False)
+            self.poppy.r_shoulder_y.goto_position(0, 2, wait=False)
+            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+                self.poppy.l_shoulder_x.goto_position(0, 2, wait=False)
+            self.poppy.r_shoulder_x.goto_position(0, 2, wait=True)
+
+    # EX6 - open and close arms 90
+    def open_and_close_arms_90(self, counter):
+        if counter == 0:
+            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+                self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
+            self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)
+            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+                self.poppy.l_elbow_y.goto_position(0, 1.5, wait=False)
+            self.poppy.r_elbow_y.goto_position(0, 1.5, wait=True)
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_shoulder_x.goto_position(90, 1, wait=False)
+        self.poppy.r_shoulder_x.goto_position(-90, 1, wait=True)
+        time.sleep(1.8)
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_shoulder_x.goto_position(0, 1, wait=False)
+        self.poppy.r_shoulder_x.goto_position(0, 1, wait=True)
+        if s.robot_count:
+           if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
+                say(str(counter + 1))
+        time.sleep(1)
+        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
+            self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
+            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+                self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
+                self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
+            self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
+            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+                self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
+            self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
+
+    # EX7 - raise_arms_forward
+    def raise_arms_forward(self, counter):
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_arm_z.goto_position(-90, 1.5, wait=False)
+        self.poppy.r_arm_z.goto_position(90, 1.5, wait=False)
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
+        self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)
+        time.sleep(1.8)
+
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
+        self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
+        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
+            self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
+        self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
+        if s.robot_count:
+            if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
+                say(str(counter + 1))
+        time.sleep(1)
+
+
 
     # EX3 - Raise Arms Bend Elbows One Hand
     def raise_arms_bend_elbows_one_hand(self, counter):
@@ -236,33 +292,7 @@ class Poppy(threading.Thread):
                 self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
                 self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
 
-    # Ex4 - open and close arms
-    def open_and_close_arms(self, counter):
-        if counter == 0:
-            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-                self.poppy.l_shoulder_y.goto_position(-90, 2, wait=False)
-            self.poppy.r_shoulder_y.goto_position(-90, 2, wait=True)
-            time.sleep(1.2)
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_shoulder_x.goto_position(95, 1.5, wait=False)
-        self.poppy.r_shoulder_x.goto_position(-85, 1.5, wait=True)
-        # self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
-        # self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
-        time.sleep(1.8)
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_shoulder_x.goto_position(0, 2, wait=False)
-        self.poppy.r_shoulder_x.goto_position(0, 2, wait=True)
-        if s.robot_count:
-            if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
-                say(str(counter + 1))
-        time.sleep(1)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
-            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-                self.poppy.l_shoulder_y.goto_position(0, 2, wait=False)
-            self.poppy.r_shoulder_y.goto_position(0, 2, wait=False)
-            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-                self.poppy.l_shoulder_x.goto_position(0, 2, wait=False)
-            self.poppy.r_shoulder_x.goto_position(0, 2, wait=True)
+
 
     # Ex4 - open and close arms - one hand
     def open_and_close_arms_one_hand(self, counter):
@@ -291,35 +321,7 @@ class Poppy(threading.Thread):
                 self.poppy.r_shoulder_y.goto_position(0, 2, wait=False)
                 self.poppy.r_shoulder_x.goto_position(0, 2, wait=True)
 
-    # EX5 - open and close arms 90
-    def open_and_close_arms_90(self, counter):
-        if counter == 0:
-            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-                self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
-            self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)
-            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-                self.poppy.l_elbow_y.goto_position(0, 1.5, wait=False)
-            self.poppy.r_elbow_y.goto_position(0, 1.5, wait=True)
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_shoulder_x.goto_position(90, 1, wait=False)
-        self.poppy.r_shoulder_x.goto_position(-90, 1, wait=True)
-        time.sleep(1.8)
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_shoulder_x.goto_position(0, 1, wait=False)
-        self.poppy.r_shoulder_x.goto_position(0, 1, wait=True)
-        if s.robot_count:
-           if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
-                say(str(counter + 1))
-        time.sleep(1)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
-            self.poppy.r_elbow_y.goto_position(90, 1.5, wait=False)
-            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-                self.poppy.l_elbow_y.goto_position(90, 1.5, wait=True)
-                self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
-            self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-            if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-                self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
-            self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
+
 
     # EX5 - open and close arms 90 - one hand
     def open_and_close_arms_90_one_hand(self, counter):
@@ -351,28 +353,7 @@ class Poppy(threading.Thread):
                 self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
                 self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
 
-    # EX 6 raise_arms_forward
-    def raise_arms_forward(self, counter):
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_arm_z.goto_position(-90, 1.5, wait=False)
-        self.poppy.r_arm_z.goto_position(90, 1.5, wait=False)
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
-        self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)
-        time.sleep(1.8)
 
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
-        self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
-        if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
-            self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
-        self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-        if s.robot_count:
-            if (s.Team_Number == 0 or s.Team_Number == 1) or not s.inter_aff:
-                say(str(counter + 1))
-        time.sleep(1)
-
-        return
 
     # EX 6 raise_arms_forward - one hand
     def raise_arms_forward_one_hand(self, counter):
@@ -396,29 +377,6 @@ class Poppy(threading.Thread):
         time.sleep(1)
 
 
-    # EX7 - Raise Arms
-    def raise_arms(self, counter):
-        l_hand = [self.poppy.l_shoulder_y.goto_position(-90, 2, wait=False),
-                  self.poppy.l_arm_z.goto_position(-90, 2, wait=False)]
-        r_hand = [self.poppy.r_arm_z.goto_position(90, 2, wait=False),
-                  self.poppy.r_shoulder_y.goto_position(-90, 2, wait=True)]
-        time.sleep(1)
-        self.poppy.r_shoulder_x.goto_position(-85, 1.5, wait=False)
-        self.poppy.l_shoulder_x.goto_position(95, 1.5, wait=True)
-        time.sleep(1.5)
-        self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
-        self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=True)
-        if s.robot_count:
-            say(str(counter + 1))
-        time.sleep(1.8)
-        if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
-            # return to init position
-            self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
-            self.poppy.r_arm_z.goto_position(0, 1.5, wait=False)
-            self.poppy.l_shoulder_y.goto_position(0, 1.5, wait=False)
-            self.poppy.r_shoulder_y.goto_position(0, 1.5, wait=True)
-            self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False)
-            self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=True)
 
         # EX8 - Raise arms forward and bend elbows (fan-like motion)
     def raise_arms_forward_prayer(self, counter):
