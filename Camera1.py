@@ -158,7 +158,7 @@ class Camera(threading.Thread):
                         flag = True
                         counter += 1
                         print(counter)
-                        if not s.robot_count:
+                        if not s.robot_count and not s.inter_aff::
                             say(str(counter))
                     if (down_lb < right_angle < down_ub) & (down_lb < left_angle < down_ub) & \
                             (down_lb2 < right_angle2 < down_ub2) & (down_lb2 < left_angle2 < down_ub2) & (flag):
@@ -350,7 +350,7 @@ class Camera(threading.Thread):
             left_hand_data = df.iloc[1]
             left_hand_data = left_hand_data.dropna().to_numpy()
             
-            #plot_dta(exercise_name, right_hand_data, left_hand_data)  # only for internal checks comparing plot to classification
+            plot_data(exercise_name, right_hand_data, left_hand_data)  # only for internal checks comparing plot to classification
 
             
             if s.adaptive:
