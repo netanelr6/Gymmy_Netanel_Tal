@@ -1,5 +1,9 @@
 import os
 
+project_folder = "netanel&tal_2026A_" # fulder name in dats
+output_path = ""    # bild in main
+save_outputs = True  # Set to False to disable folder creation, Excel saving, and logging
+
 
 # adaptation_model_name = "default_model" 
 
