@@ -32,13 +32,19 @@ class Screen(tk.Tk):
 
         self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
 
-        self.after(1000, self.activate_screen)
+        self.after(500, self.refresh_touch)
 
-    def activate_screen(self):
-        print("activating screen")
-        self.event_generate("<Button-1>", x=10, y=10)
+    def refresh_touch(self):
+        print("Simulating touch")
+    
+        # מדמה לחיצה קטנה על המסך
+        self.event_generate("<ButtonPress-1>", x=10, y=10)
+        self.event_generate("<ButtonRelease-1>", x=10, y=10)
+    
+        # מבטיח פוקוס אחרי ה"טאץ'"
         self.focus_force()
-
+        self.focus_set()
+        
     def reboot_from_keyboard(self, event=None):
         print("KEYBOARD REBOOT TRIGGERED")
     
