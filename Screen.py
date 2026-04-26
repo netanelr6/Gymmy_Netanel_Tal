@@ -30,9 +30,15 @@ class Screen(tk.Tk):
         self.attributes("-topmost", True)
         self.focus_force()
         self.bind("<Escape>", lambda e: self.attributes("-fullscreen", False))
-        #self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
-        keyboard.add_hotkey("space", lambda: self.reboot_from_keyboard(None))
+        self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
 
+        self.after(500, self.force_keyboard_focus)
+
+    def force_keyboard_focus(self):
+        self.lift()
+        self.focus_force()
+        self.focus_set()
+    
     def reboot_from_keyboard(self, event):
         print("KEYBOARD REBOOT TRIGGERED")
 
