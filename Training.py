@@ -133,7 +133,7 @@ class Training(threading.Thread):
                       "open_and_close_arms_90", "raise_arms_forward"]
 
         for e in exercise_names:
-            if e is "bend_elbows" :
+            if e == "bend_elbows" :
                 if s.Team_Number == 1:
                     s.hardwere_aff = True
                 elif s.Team_Number == 2:
