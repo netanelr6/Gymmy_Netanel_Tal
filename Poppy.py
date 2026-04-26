@@ -98,14 +98,14 @@ class Poppy(threading.Thread):
                     self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
                     self.poppy.r_shoulder_x.goto_position(-90, 1.5, wait=False),
                     self.poppy.r_elbow_y.goto_position(90, 1.5, wait=True)]
-        time.sleep(2)
+        time.sleep(1)
         hands_down = [self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=False),
                       self.poppy.l_elbow_y.goto_position(90, 1.5, wait=False),
                       self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False),
                       self.poppy.r_elbow_y.goto_position(90, 1.5, wait=True)]
         if s.robot_count:
             say(str(counter + 1))
-        time.sleep(1.8)
+        time.sleep(1.2)
 
     # EX2 - Raise Arms
     def raise_arms(self, counter):
@@ -116,12 +116,12 @@ class Poppy(threading.Thread):
         time.sleep(1)
         self.poppy.r_shoulder_x.goto_position(-85, 1.5, wait=False)
         self.poppy.l_shoulder_x.goto_position(95, 1.5, wait=True)
-        time.sleep(1.5)
+        time.sleep(1)
         self.poppy.r_shoulder_x.goto_position(0, 1.5, wait=False)
         self.poppy.l_shoulder_x.goto_position(0, 1.5, wait=True)
         if s.robot_count:
             say(str(counter + 1))
-        time.sleep(1.8)
+        time.sleep(1)
         if counter >= s.rep-1 or s.success_exercise:  # TODO - Change to something that works if it finished before 8 repetitions.
             # return to init position
             self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
