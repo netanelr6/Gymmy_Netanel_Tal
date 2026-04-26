@@ -5,6 +5,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import Settings as s
 import random
+from Audio import say
 
 
 
@@ -47,6 +48,7 @@ class Screen(tk.Tk):
         elif s.inter_aff:
             print("Resetting interaction...")
             s.inter_aff = False
+            say("Reboot")
     
         else:
             print("No reboot condition active")
