@@ -5,7 +5,6 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import Settings as s
 import random
-import keyboard
 
 
 
