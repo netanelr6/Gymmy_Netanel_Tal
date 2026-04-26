@@ -173,7 +173,7 @@ class Training(threading.Thread):
         if s.success_exercise:
             say(self.random_encouragement())
         if s.reboot_flag and (s.hardwere_aff or s.inter_aff) :
-            s.say("Reboot")
+            say("Reboot")
         print("TRAINING: Exercise ", name, " done")
         time.sleep(1)
 
