@@ -30,23 +30,16 @@ class Screen(tk.Tk):
         self.focus_force()
         self.bind("<Escape>", lambda e: self.attributes("-fullscreen", False))
 
-        self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
+        self.bind_all("<Button-3>", self.reboot_from_mouse)   # קליק ימני
 
         self.after(500, self.refresh_touch)
 
-    def refresh_touch(self):
-        print("Simulating touch")
-    
-        # מדמה לחיצה קטנה על המסך
-        self.event_generate("<ButtonPress-1>", x=10, y=10)
-        self.event_generate("<ButtonRelease-1>", x=10, y=10)
-    
-        # מבטיח פוקוס אחרי ה"טאץ'"
-        self.focus_force()
-        self.focus_set()
         
-    def reboot_from_keyboard(self, event=None):
-        print("KEYBOARD REBOOT TRIGGERED")
+    def reboot_from_mouse(self, event=None):
+        print("RIGHT CLICK REBOOT TRIGGERED")
+    
+        # מבטיח פוקוס (ליתר ביטחון)
+        self.focus_force()
     
         if s.hardwere_aff:
             print("Resetting robot...")
