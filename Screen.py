@@ -42,10 +42,12 @@ class Screen(tk.Tk):
         if s.hardwere_aff:
             print("Resetting robot...")
             s.reboot_flag = True
+            s.say("Reboot")
     
         elif s.inter_aff:
             print("Resetting interaction...")
             s.inter_aff = False
+            s.say("Reboot")
     
         else:
             print("No reboot condition active")
