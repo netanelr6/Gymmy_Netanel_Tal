@@ -245,7 +245,7 @@ class Poppy(threading.Thread):
         if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
             self.poppy.l_shoulder_y.goto_position(-90, 1.5, wait=False)
         self.poppy.r_shoulder_y.goto_position(-90, 1.5, wait=True)
-        time.sleep(1.8)
+        time.sleep(1)
 
         if (s.Team_Number == 0 or s.Team_Number == 2) or not s.hardwere_aff:
             self.poppy.l_arm_z.goto_position(0, 1.5, wait=False)
