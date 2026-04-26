@@ -7,6 +7,7 @@ from scipy.signal import butter, filtfilt, argrelextrema
 import matplotlib.pyplot as plt
 import Settings as s
 import datetime
+import os
 
 
 def repetition_features(data, hand, framepersec):
@@ -242,6 +243,14 @@ def predict_performance(features, exercise_name, model_name):
 
 
 def plot_data(exercise_name, right_hand_data, left_hand_data):
+    """
+    Generates and saves a plot of the exercise performance.
+    Saves to s.output_path if s.save_outputs is enabled.
+    """
+    # 1. Check if saving is enabled
+    if not getattr(s, 'save_outputs', True):
+        return
+    
     plt.figure()
     plt.plot(right_hand_data, label="right hand")
     plt.legend(loc='lower right')
@@ -249,7 +258,26 @@ def plot_data(exercise_name, right_hand_data, left_hand_data):
     plt.xlabel("Frame")
     plt.ylabel("Angle Degree")
     current_time = datetime.datetime.now()
-    plt.savefig(s.participant_code+exercise_name+str(current_time.minute) + str(current_time.second)+'.png')
+
+    # 2. Construct file name
+    current_time = datetime.datetime.now()
+    timestamp = current_time.strftime("%M%S")
+    file_name = f"{s.participant_code}_{exercise_name}_{timestamp}.png"
+    # 3. Determine save path
+    if hasattr(s, 'output_path'):
+        full_path = os.path.join(s.output_path, file_name)
+    else:
+        full_path = file_name # Fallback to current directory
+        
+    plt.savefig(full_path)
+    
+    # 4. CRITICAL: Close the plot to free up memory (RAM)
+    # This prevents the system from slowing down during long sessions
+    plt.close()
+
+
+    #old
+    # plt.savefig(s.participant_code+exercise_name+str(current_time.minute) + str(current_time.second)+'.png')
     # plt.show()
 
 
