@@ -1,5 +1,9 @@
 import os
 
+#folder - dsts
+project_folder = "netanel&tal_2026_semA" # האות או השם שאתה מגדיר
+output_path = ""    # המשתנה הזה יתמלא בזמן ריצה ב-Main
+
 
 # adaptation_model_name = "default_model" 
 
