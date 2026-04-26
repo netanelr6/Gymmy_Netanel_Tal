@@ -32,18 +32,13 @@ class Screen(tk.Tk):
 
         self.bind_all("<KeyPress-space>", self.reboot_from_keyboard)
 
-        self.after(100, self.force_keyboard_focus)
-        self.after(500, self.force_keyboard_focus)
-        self.after(1000, self.force_keyboard_focus)
+        self.after(1000, self.activate_screen)
 
-    def force_keyboard_focus(self):
-        print("forcing focus")
-        self.lift()
-        self.attributes("-topmost", True)
+    def activate_screen(self):
+        print("activating screen")
+        self.event_generate("<Button-1>", x=10, y=10)
         self.focus_force()
-        self.focus_set()
-        self.after(200, lambda: self.attributes("-topmost", False))
-    
+
     def reboot_from_keyboard(self, event=None):
         print("KEYBOARD REBOOT TRIGGERED")
     
