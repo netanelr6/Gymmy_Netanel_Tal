@@ -149,7 +149,7 @@ class Training(threading.Thread):
                 self.run_exercise(e)
 
                 if s.reboot_flag:
-                    say("New_Reboot")
+                    #say("New_Reboot")
                 
                     if s.hardwere_aff:
                         s.hardwere_aff = False
