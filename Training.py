@@ -149,8 +149,11 @@ class Training(threading.Thread):
             while (not s.poppy_done) or (not s.camera_done):
                 print("not done")
                 time.sleep(1)
-            if (s.hardwere_aff and s.reboot_flag):
-                s.hardwere_aff = False
+            if s.reboot_flag:
+                if s.hardwere_aff or s.inter_aff:
+                    s.hardwere_aff = False
+                    s.inter_aff = False
+                s.reboot_flag = False
                 self.run_exercise(e)
                 while (not s.poppy_done) or (not s.camera_done):
                     print("not done")
@@ -177,7 +180,7 @@ class Training(threading.Thread):
         if s.success_exercise:
             say(self.random_encouragement())
         if s.reboot_flag and (s.hardwere_aff or s.inter_aff) :
-            say("Reboot")
+            say("New_Reboot")
         print("TRAINING: Exercise ", name, " done")
         time.sleep(1)
 
