@@ -36,22 +36,9 @@ class Screen(tk.Tk):
         
     def reboot_from_mouse(self, event=None):
         print("RIGHT CLICK REBOOT TRIGGERED")
-    
         # מבטיח פוקוס (ליתר ביטחון)
         self.focus_force()
-    
-        if s.hardwere_aff:
-            print("Resetting robot...")
-            s.reboot_flag = True
-
-    
-        elif s.inter_aff:
-            print("Resetting interaction...")
-            s.inter_aff = False
-            say("Reboot")
-    
-        else:
-            print("No reboot condition active")
+        s.reboot_flag = True
         
 
     def switch_frame(self, frame_class):
