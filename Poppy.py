@@ -79,9 +79,9 @@ class Poppy(threading.Thread):
                 if s.reboot_flag:
                     say("New_Reboot")
                     if s.hardwere_aff or s.inter_aff:
-                        s.inter_aff = false
-                        s.hardwere_aff = false
-                    s.reboot_flag = false
+                        s.inter_aff = False
+                        s.hardwere_aff = False
+                    s.reboot_flag = False
                     break
 
 
