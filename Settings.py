@@ -9,6 +9,7 @@ save_outputs = True  # Set to False to disable folder creation, Excel saving, an
 
 show_reboot_button = True
 reboot_flag = False
+s.exercise_completed = False
 
 req_exercise = ""
 str_to_say = ""
