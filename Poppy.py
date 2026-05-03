@@ -77,6 +77,7 @@ class Poppy(threading.Thread):
                 if s.success_exercise:
                     break
                 if s.reboot_flag:
+                    say("New_Reboot")
                     break
 
 
