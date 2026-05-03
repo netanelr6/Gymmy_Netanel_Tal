@@ -147,17 +147,6 @@ class Training(threading.Thread):
                 s.reboot_flag = False
                 
                 self.run_exercise(e)
-                
-                if s.reboot_flag:
-                    say ("Reboot")
-                    if s.hardwere_aff or s.inter_aff:
-                        s.hardwere_aff = False
-                        s.inter_aff = False
-                    s.reboot_flag = False
-                    
-                while (not s.poppy_done) or (not s.camera_done):
-                    print("not done")
-                    time.sleep(1)
 
                 if s.reboot_flag:
                     say("New_Reboot")
@@ -169,6 +158,10 @@ class Training(threading.Thread):
                         s.inter_aff = False
                 
                     s.reboot_flag = False
+
+                    while (not s.poppy_done) or (not s.camera_done):
+                        print("not done")
+                        time.sleep(1)
                         
                     print("TRAINING: Reboot detected, repeating exercise:", e)
                     continue
