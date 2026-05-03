@@ -31,8 +31,8 @@ class Screen(tk.Tk):
         self.focus_force()
         self.bind("<Escape>", lambda e: self.attributes("-fullscreen", False))
 
-       #self.bind_all("<Button-3>", self.reboot_from_mouse)   # קליק ימני
-        self.bind_all("<Button-1>", self.reboot_from_mouse)
+        self.bind_all("<Button-3>", self.reboot_from_mouse)   # קליק ימני
+        #self.bind_all("<Button-1>", self.reboot_from_mouse)
         
     def reboot_from_mouse(self, event=None):
         print("RIGHT CLICK REBOOT TRIGGERED")
