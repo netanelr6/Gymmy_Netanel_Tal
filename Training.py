@@ -138,26 +138,42 @@ class Training(threading.Thread):
                     s.hardwere_aff = True
                 elif s.Team_Number == 2:
                     s.inter_aff = True
-            time.sleep(4) # wait between exercises
-            if s.reboot_flag:
-                say ("Reboot")
-                if s.hardwere_aff or s.inter_aff:
-                    s.hardwere_aff = False
-                    s.inter_aff = False
+
+            s.exercise_completed = False
+    
+            while not s.exercise_completed:
+                time.sleep(4) # wait between exercises
+
                 s.reboot_flag = False
-            self.run_exercise(e)
-            while (not s.poppy_done) or (not s.camera_done):
-                print("not done")
-                time.sleep(1)
-            if s.reboot_flag:
-                if s.hardwere_aff or s.inter_aff:
-                    s.hardwere_aff = False
-                    s.inter_aff = False
-                s.reboot_flag = False
+                
                 self.run_exercise(e)
+                
+                if s.reboot_flag:
+                    say ("Reboot")
+                    if s.hardwere_aff or s.inter_aff:
+                        s.hardwere_aff = False
+                        s.inter_aff = False
+                    s.reboot_flag = False
+                    
                 while (not s.poppy_done) or (not s.camera_done):
                     print("not done")
                     time.sleep(1)
+
+                if s.reboot_flag:
+                    say("New_Reboot")
+                
+                    if s.hardwere_aff:
+                        s.hardwere_aff = False
+                
+                    if s.inter_aff:
+                        s.inter_aff = False
+                
+                    s.reboot_flag = False
+                        
+                    print("TRAINING: Reboot detected, repeating exercise:", e)
+                    continue
+
+                s.exercise_completed = True
 
 
     def finish_workout(self):
