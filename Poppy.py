@@ -76,7 +76,12 @@ class Poppy(threading.Thread):
                 getattr(self, ex)(i)
                 if s.success_exercise:
                     break
-                if s.reboot_flag and s.hardwere_aff:
+                if s.reboot_flag:
+                    say("New_Reboot")
+                    if s.hardwere_aff or s.inter_aff:
+                        s.inter_aff = false
+                        s.hardwere_aff = false
+                    s.reboot_flag = false
                     break
 
 
