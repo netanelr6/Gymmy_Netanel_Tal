@@ -50,7 +50,7 @@ def initialize_experiment_settings():
 
     # Original system variables4
     s.exercise_amount = 6
-    s.rep = 4 #8
+    s.rep = 8 #8
     s.waved = False
     s.success_exercise = False
     s.calibration = False
